@@ -106,15 +106,24 @@ if __name__ == "__main__":
     # parser.add_argument("--frame_rate", type=int, default=1, help="Frames to extract per second.")
     
     # args = parser.parse_args()
-    for vp in tqdm(Path(r'C:\dumpinggrounds\stable_video\src_cap_video').glob('*.mp4')):
+    to_remove_dir = Path(r'C:\temp\deletable')
+    for vp in tqdm([x for x in Path(r'C:\dumpinggrounds\stable_video\src_cap_video').glob('*.mp4')]):
+        if len(vp.name) > 50:
+            rp = vp.with_name(vp.name[:30]+vp.name[-10:])
+            vp.rename(rp)
         op = Path(r'C:\dumpinggrounds\stable_video\src' ) / vp.stem
         # extract_frames(args.video_path, args.output_folder, args.frame_rate)
+
         if op.exists():
+            # to_remove_dir.mkdir(parents=True, exist_ok=True)
+            # vp.replace(to_remove_dir / vp.name)
             continue
         extract_frames(vp, op, vp.stem[:50],20)
-    for vp in tqdm(Path(r'C:\dumpinggrounds\stable_video\fullSRc').glob('*.mp4')):
+    for vp in tqdm([x for x in Path(r'C:\dumpinggrounds\stable_video\fullSRc').glob('*.mp4')]):
         op = Path(r'C:\dumpinggrounds\stable_video\fsrc' ) / (vp.stem+'full')
         # extract_frames(args.video_path, args.output_folder, args.frame_rate)
         if op.exists():
+            to_remove_dir.mkdir(parents=True, exist_ok=True)
+            vp.replace(to_remove_dir / vp.name)
             continue
         extract_frames_co(vp, op, vp.stem[:50],1)
