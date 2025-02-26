@@ -1,5 +1,6 @@
 from pathlib import Path
 from compile_video import compile_video_from_frames
+import shutil
 
 
 if __name__ == "__main__":
@@ -11,8 +12,11 @@ if __name__ == "__main__":
             continue  
         img_files = [x.stem for x in dir.glob('*.jpg')]
         fname = img_files[0] + '.mp4'
-        ovp = Path(r"D:\paradise\stuff\new\yummy_clips") / fname
+        yt = Path(r"D:\paradise\stuff\new\yummy_clips")
+        yt.mkdir(parents=True, exist_ok=True)
+        ovp = yt / fname
         if ovp.is_file():
+            shutil.rmtree(dir)
             continue
         if len(img_files) < 15:
             fp = 24 - len(img_files)
@@ -20,6 +24,9 @@ if __name__ == "__main__":
             fb = True
         try:
             compile_video_from_frames(dir, ovp, fps=fp, forward_backward=fb)
+            shutil.rmtree(dir)
+
+
         except Exception as e:
             print(e)
             continue

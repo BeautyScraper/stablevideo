@@ -32,6 +32,9 @@ def move_files(source_to_move_from,target_to_move_to, reference_folder, regex_st
                         # Move the file to the target location
                         target_path = Path(target_to_move_to) / input_file.name
                         sourceFile = Path(source_to_move_from) / input_file.name
+                        if target_path.is_file():
+                            os.remove(str(target_path))
+                            
                         if not sourceFile.is_file():
                             return
 

@@ -1,1 +1,1 @@
-python "D:\Developed\Automation\imageClasher\gripo.py" --inputDir "C:\dumpinggrounds\stable_video\out\caps" --cfgfile gripo.cfg --rows 2
+python "D:\Developed\Automation\imageClasher\gripo.py" --inputDir "C:\dumpinggrounds\stable_video\out\caps" --cfgfile gripo.cfg --rows 2 --columns 3

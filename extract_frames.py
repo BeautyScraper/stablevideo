@@ -110,6 +110,8 @@ if __name__ == "__main__":
     for vp in tqdm([x for x in Path(r'C:\dumpinggrounds\stable_video\src_cap_video').glob('*.mp4')]):
         if len(vp.name) > 50:
             rp = vp.with_name(vp.name[:30]+vp.name[-10:])
+            if rp.is_file():
+                rp.unlink()
             vp.rename(rp)
         op = Path(r'C:\dumpinggrounds\stable_video\src' ) / vp.stem
         # extract_frames(args.video_path, args.output_folder, args.frame_rate)
